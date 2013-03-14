@@ -1,0 +1,39 @@
+{% extends "Shared/master.html.twig" %}
+
+{% block content %}
+    <div id="notes-container">
+    <form action="/add" method="post" class="form-horizontal">
+        <h3>Add a note</h3>
+        <div class="control-group">
+            <label class="control-label" for="note_title">Title</label>
+            <div class="controls">
+                <input type="text" id="note_title" name="note[title]" placeholder="Title">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="note_message">Message</label>
+            <div class="controls">
+                <textarea id="note_message" name="note[message]" placeholder="Message"></textarea>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn">Add note</button>
+            </div>
+        </div>
+    </form>
+        <h3>Current notes</h3>
+        {% for note in notes %}
+            {% include "Home/_note.html.twig" %}
+        {% else %}
+            No notes! Add one using the form above.
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        var note_form = new NoteForm('#notes-container');
+        note_form.observe();
+    </script>
+{% endblock %}
